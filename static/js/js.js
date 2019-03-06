@@ -34,7 +34,7 @@ function check(element)
     
 	
 	var jsonData = {};
-	jsonData["src"]=modalImg.src;
+	jsonData["src"]=element.src;
 
 	$.ajax({
 	type: 'POST',
