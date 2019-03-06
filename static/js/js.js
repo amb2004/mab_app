@@ -31,7 +31,7 @@ function check(element)
     var modal = document.getElementById('myModal');
 
     modal.style.display = "block";
-    modalImg.src = element.src;
+    
 	
 	var jsonData = {};
 	jsonData["src"]=modalImg.src;
