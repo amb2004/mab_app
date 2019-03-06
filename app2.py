@@ -38,8 +38,8 @@ def get_data(path_main, name0):
     # path_img="./static/img/croped_img_300/"
     path_img = os.path.join(path_main, "croped_img_300/")
     path_rect = os.path.join(path_main, "croped_rect/")
-    if name0 in str(os.listdir(path_main)):
-        return path_rect + name0
+#    if name0 in str(os.listdir(path_main)):
+#        return path_rect + name0
 
     file_json = name0.replace('jpg', 'json')
     file_json = path_json + file_json
@@ -106,6 +106,11 @@ def delet_from_drc(filename):
         os.remove("./static/img/croped_img_200/{}.jpg".format(filename))
     except:
         pass
+    try:
+        os.remove("./static/img/croped_rect/{}.jpg".format(filename))
+    except:
+        pass
+
 
 
 
