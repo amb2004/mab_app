@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            
+
+        
+        <script src="{{ url_for('static', filename='js/jquery-1.4.3.min.js')}}"></script>
+        <link href="{{ url_for('static', filename='style_f.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/cropper.min.css')}}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/font-awesome.css')}}">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+
+
+    <script src="{{ url_for('static', filename='js/cropper.min.js')}}"></script>
+
+    <script>
+            
+            var obj = {{info|safe}};
+            console.log(obj)
+    </script>
+
+    <title>Edit</title>
+    </head>
+
+    <body>
+            <section class="container ">
+                    <button type="button"  id="get_title" class="btn btn-info btn-arrow-right">Get Drawing title</button>
+                    <button type="button" id="get_drawing" class="btn btn-info btn-arrow-right">Get drawing number</button>
+                    <button type="button" id="get_project"  class="btn btn-info btn-arrow-right">Get project number</button>
+                    <button type="button" id="revision" class="btn btn-info btn-arrow-right">revision</button>
+                    <button type="button" id="reset" class="btn btn-warning btn-arrow-right"><i class="fa fa-reply-all" aria-hidden="true"></i>
+           RESET </button>
+                      </section>
+
+                      
+<section class="padding">
+        <div class="container">
+                <div class="row">
+                  <div class="col-md-9">
+                    <!-- <h3>Demo:</h3> -->
+                    <div class="img-container" >
+						<img src="static/img/croped_img/{{msg}}" id="blah" width="700" height="500">
+
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <!-- <h3>Preview:</h3> -->
+                    <img src="images/architect-icon.jpg" id="uploader-preview" height="200px"  width="200px">
+                    <!-- <h3>Data:</h3> -->
+                    <!-- <h3>Data:</h3> -->
+                    <div class="docs-data">
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataX">X</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataX" placeholder="x">
+                        <span class="input-group-append">
+                          <span class="input-group-text">px</span>
+                        </span>
+                      </div>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataY">Y</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataY" placeholder="y">
+                        <span class="input-group-append">
+                          <span class="input-group-text">px</span>
+                        </span>
+                      </div>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataWidth">Width</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataWidth" placeholder="width">
+                        <span class="input-group-append">
+                          <span class="input-group-text">px</span>
+                        </span>
+                      </div>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataHeight">Height</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataHeight" placeholder="height">
+                        <span class="input-group-append">
+                          <span class="input-group-text">px</span>
+                        </span>
+                      </div>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataRotate">Rotate</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataRotate" placeholder="rotate">
+                        <span class="input-group-append">
+                          <span class="input-group-text">deg</span>
+                        </span>
+                      </div>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataScaleX">ScaleX</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataScaleX" placeholder="scaleX">
+                      </div>
+                      <div class="input-group input-group-sm">
+                        <span class="input-group-prepend">
+                          <label class="input-group-text" for="dataScaleY">ScaleY</label>
+                        </span>
+                        <input type="text" class="form-control" id="dataScaleY" placeholder="scaleY">
+                      </div>
+                      <br>
+                      <div>
+                          <button type="button" id="finish_btn" class="btn btn-success btn-lg">Get finished result</button>
+
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row" id="actions">
+                  <div class="col-md-9 docs-buttons">
+                    <!-- <h3>Toolbar:</h3> -->
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="setDragMode" id="set_drag_mode"  data-option="move" title="Move">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.setDragMode(&quot;move&quot;)">
+                          <span class="fa fa-arrows"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="setDragMode" id="set_crop_mode" data-option="crop" title="Crop">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.setDragMode(&quot;crop&quot;)">
+                          <span class="fa fa-crop"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="zoom" id="zoom_button" data-option="0.1" title="Zoom In">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.zoom(0.1)">
+                          <span class="fa fa-search-plus"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="zoom" id="un_zoom_button"  data-option="-0.1" title="Zoom Out">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.zoom(-0.1)">
+                          <span class="fa fa-search-minus"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="move" id="move_left" data-option="-10" data-second-option="0" title="Move Left">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(-10, 0)">
+                          <span class="fa fa-arrow-left"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="move" id="move_right" data-option="10" data-second-option="0" title="Move Right">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(10, 0)">
+                          <span class="fa fa-arrow-right"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="move" data-option="0" id="move_up" data-second-option="-10" title="Move Up">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(0, -10)">
+                          <span class="fa fa-arrow-up"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="move" data-option="0" id="move_down" data-second-option="10" title="Move Down">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.move(0, 10)">
+                          <span class="fa fa-arrow-down"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45" id="rotat_plus" title="Rotate Left">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.rotate(-45)">
+                          <span class="fa fa-rotate-left"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="rotate" data-option="45" id="rotat_moin" title="Rotate Right">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.rotate(45)">
+                          <span class="fa fa-rotate-right"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="scaleX" data-option="-1" title="Flip Horizontal">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.scaleX(-1)">
+                          <span class="fa fa-arrows-h"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="scaleY" data-option="-1" title="Flip Vertical">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.scaleY(-1)">
+                          <span class="fa fa-arrows-v"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="crop" title="Crop">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.crop()">
+                          <span class="fa fa-check"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="clear" title="Clear">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.clear()">
+                          <span class="fa fa-remove"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="disable" title="Disable">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.disable()">
+                          <span class="fa fa-lock"></span>
+                        </span>
+                      </button>
+                      <button type="button" class="btn btn-primary" data-method="enable" title="Enable">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.enable()">
+                          <span class="fa fa-unlock"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-primary" data-method="reset" title="Reset">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.reset()">
+                          <span class="fa fa-refresh"></span>
+                        </span>
+                      </button>
+                    
+                      <button type="button" class="btn btn-primary" data-method="destroy" title="Destroy">
+                        <span class="docs-tooltip" data-toggle="tooltip" title="" data-original-title="cropper.destroy()">
+                          <span class="fa fa-power-off"></span>
+                        </span>
+                      </button>
+                    </div>
+            
+
+            
+            
+                </div>
+              </div>
+
+
+
+
+    
+</section>
+
+          </ul>
+          
+        </div>
+      </nav>
+
+
+                      
+
+                        <script src="{{ url_for('static', filename='js/edit.js')}}"></script>
+
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+                      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+                  
+    </body>
+
+
+</html>

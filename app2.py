@@ -13,7 +13,11 @@ import cv2
 
 def get_rect(data_):
 #    print(data_)
-    data_=json.loads(data_)
+    print("jjjjjjjjjjjjjjjjjjjj================",str(data_))
+    try:
+        data_=json.loads(data_)
+    except:
+        pass
     x_start=int(data_['x'])
     y_start=int(data_['y'])
     x_end=x_start+int(data_['width'])
@@ -48,7 +52,9 @@ def get_data(path_main, name0):
 
     print(file_json)
     with open(file_json) as datafile:
+        
         data = json.load(datafile)
+        print("wwwwwwwwwwwwddddddddddddddddddddd=======",datafile)
 
     title = data['title']
     print('title   :', title)
@@ -156,9 +162,43 @@ class post(Resource):
 
         return json_data
 
+
+class edit_save(Resource):
+    def post (self):
+        json_data = request.get_json(force=True)
+        
+        path_json = os.path.join(app.config['UPLOAD_FOLDER'], "rlogo/",json_data["filename"].replace('.jpg','.json'))
+        print("]]]]]]]]]]]]]",path_json)
+        
+
+        json_info={
+            "filename":"",
+            "coo_img":"",
+            "title":"",
+            "revsion":"",
+            "price":"",
+            "project_number":""
+        }
+        json_info["filename"]=str(json_data["filename"])
+        json_info["coo_img"]=str(json_data["coo_img"])
+        json_info["title"]=str(json_data["title"])
+        json_info["project_number"]=str(json_data["project_number"])
+        json_info["revsion"]=str(json_data["revsion"])
+
+
+        
+        with open(path_json, 'w') as outfile:
+            json.dump(json_info, outfile)
+
+
+        return json_info
+
 api.add_resource(HelloWorld, '/hello')
 
 api.add_resource(post, '/posts')
+
+api.add_resource(edit_save, '/save_edit')
+
 
 
 
@@ -196,6 +236,47 @@ def finish():
     json_info["coo_img"]=get()
     print(json_info["filename"])
     return crop(app,request,json_info)
+img=None
+infos=None
+@app.route('/edit', methods = ['POST','GET'])
+
+def edit():
+
+    # if request.method == 'GET':
+    print(request.method)
+
+    if request.method=='GET':
+        
+        print("====================+++",json_data)
+        return render_template('edit.html',msg=img,info=infos)
+
+
+    if request.method == 'POST':
+        json_data=request.form["firstname"]
+        # print("====================+++",json_data)
+        # return render_template('edit.html',msg=img,info=infos)
+        # json_data = request.get_json(force=True)
+        json_data = (json_data.split('/')[-1]).split('.')[0:-1]
+        json_data = ".".join(json_data)
+        img=json_data+'.jpg'
+        json_data=json_data+".json"
+        print("===========------------",json_data)
+
+        path_json = os.path.join(app.config['UPLOAD_FOLDER'], "rlogo/",json_data)
+
+        print("=====",path_json)
+        import io
+        file = io.open(path_json, mode="r", encoding="utf-8").read()
+        file=json.loads(file)
+        infos=file
+        #file=json.loads(file)
+
+        return render_template('edit.html',msg=img,info=file)
+
+
+
+
+
 
 
 

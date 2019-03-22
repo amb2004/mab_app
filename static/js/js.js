@@ -90,6 +90,24 @@ $.ajax({
 
 }}
 
+function edit(element)
+{
+  console.log(element)
+var form=element.parentElement
+// console.log(form)
+var img=form.parentElement
+// console.log(img)
+var aa = img.getElementsByTagName("img")[0].getAttribute("src")
+console.log(form)
+var jj=form.getElementsByTagName("input")[0]
+jj.setAttribute("value", aa);
+
+
+var r = confirm("Are you sure to edit this element?");
+if (r == true) {
+  form.submit();
+}}
+
 
 
 

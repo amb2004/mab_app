@@ -1,6 +1,12 @@
 {% for img in images %} 
 <div class="container">
-    <img class="show-popup" onclick="check(this);" id="myImg" src="static\img\croped_img\{{img}}" alt="Snow">
-    <a class="btn" onclick="del(this);"><i class="fas fa-trash-alt"></i></a>
+    <img class="show-popup" onclick="check(this);" id="myImg" src="static/img/croped_img/{{img}}" alt="Snow">
+    <a class="btn jj" onclick="del(this);"><i class="fas fa-trash-alt"></i></a>
+    <form action="/edit" method="post">
+        <input type="text" id="txt" name="firstname" style='display:none;'  value="Mickey"><br>
+        <a class="btn io" onclick="edit(this); "><i class="fas fa-edit"></i></a>
+
+        <input type="submit" style='display:none;' value="Submit">
+      </form>
 </div>
 {% endfor %}

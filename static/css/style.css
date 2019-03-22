@@ -36,6 +36,9 @@ i {
 .btn{
   opacity: 0.5;
 }
+
+
+
 .btn:hover{
   opacity: 1;
 }
@@ -43,8 +46,7 @@ i {
   /* Style the button and place it in the middle of the container/image */
   .container .btn,.btn1 {
     position: absolute;
-    top: 19%;
-    left: 16%;
+
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     background-color: #555;
@@ -58,6 +60,16 @@ i {
   .btn1{
       margin-left: 100px
   }
+
+  .jj{
+    top: 19%;
+    left: 16%;
+  }
+  .io{
+    top: 47%;
+    left: 16%;
+  }
+
   
   .container .btn:hover,.container .btn1:hover {
     background-color: black;
@@ -140,3 +152,5 @@ i {
     width: 100%;
   }
 }
+
+
